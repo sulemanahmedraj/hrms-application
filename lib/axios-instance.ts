@@ -1,0 +1,107 @@
+"use client";
+
+import { SENSITIVE_FIELDS } from "@/lib/constant";
+import { NEXT_PUBLIC_BACKEND_URL, NEXT_PUBLIC_ENABLE_ENCRYPTION } from "@env";
+import axios, { InternalAxiosRequestConfig } from "axios";
+import { apiPost } from "./api-handler";
+import { encryptSensitiveFields } from "./encription";
+
+// Create an instance of axios with custom configuration
+export const axiosInstance = axios.create({
+    baseURL: NEXT_PUBLIC_BACKEND_URL,
+    timeout: 50000,
+    responseType: "json",
+    withCredentials: true
+});
+
+// Add a request interceptor to include the authorization token
+axiosInstance.interceptors.request.use(
+    async (
+        config: InternalAxiosRequestConfig
+    ): Promise<InternalAxiosRequestConfig> => {
+        // Check if we're in browser environment
+        if (typeof window === "undefined") {
+            return config;
+        }
+
+      //   const rawAccessToken = localStorage.getItem("accessToken");
+        const ENABLE_ENCRYPTION = NEXT_PUBLIC_ENABLE_ENCRYPTION === "true";
+
+      //   let accessToken = rawAccessToken;
+
+      //  if (accessToken) {
+      //       // Ensure headers exist and is a plain object
+      //       if (!config.headers) {
+      //           config.headers = new AxiosHeaders();
+      //       }
+      //       console.log("AccessToken", accessToken)
+      //       config.headers["Authorization"] = `Bearer ${accessToken}`;
+      //   }
+
+        if (!ENABLE_ENCRYPTION) return config; // skip encryption if disabled from env
+
+        // Skip encryption if data is FormData
+        const isFormData =
+            typeof FormData !== "undefined" && config.data instanceof FormData;
+
+        // Only encrypt for requests with data/body and proper methods
+        if (
+            config.data &&
+            !isFormData &&
+            config.method &&
+            ["post", "put", "patch"].includes(config.method.toLowerCase())
+        ) {
+            config.data = encryptSensitiveFields(config.data, SENSITIVE_FIELDS);
+        }
+
+        return config;
+    },
+    (error) => {
+        // Forward request error
+        return Promise.reject(error);
+    }
+);
+
+// Add a response interceptor to handle token expiration
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+
+    // Skip refresh for refresh endpoint and login endpoint
+    if (
+      originalRequest.url?.includes("/auth/refresh") ||
+      originalRequest.url?.includes("/auth/login")
+    ) {
+      return Promise.reject(error);
+    }
+
+    // Only handle 401 once
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      try {
+        const res = await apiPost(`/auth/refresh`);
+
+        if (!res.success) {
+          throw new Error(res.message || "Refresh failed");
+        }
+
+        const newAccessToken = (res.data as any)?.accessToken;
+        localStorage.setItem("accessToken", newAccessToken);
+
+        if (!originalRequest.headers) originalRequest.headers = {};
+        originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+
+        return axiosInstance(originalRequest);
+      } catch (refreshError) {
+        console.error("Refresh token failed", refreshError);
+        if (typeof window !== "undefined") window.location.href = "/login";
+        return Promise.reject(refreshError);
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);
+
