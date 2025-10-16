@@ -1,14 +1,13 @@
 "use client";
 
 import { SENSITIVE_FIELDS } from "@/lib/constant";
-import { NEXT_PUBLIC_BACKEND_URL, NEXT_PUBLIC_ENABLE_ENCRYPTION } from "@env";
 import axios, { InternalAxiosRequestConfig } from "axios";
 import { apiPost } from "./api-handler";
 import { encryptSensitiveFields } from "./encription";
 
 // Create an instance of axios with custom configuration
 export const axiosInstance = axios.create({
-    baseURL: NEXT_PUBLIC_BACKEND_URL,
+  baseURL: process.env.EXPO_PUBLIC_BACKEND_URL,
     timeout: 50000,
     responseType: "json",
     withCredentials: true
@@ -25,7 +24,7 @@ axiosInstance.interceptors.request.use(
         }
 
       //   const rawAccessToken = localStorage.getItem("accessToken");
-        const ENABLE_ENCRYPTION = NEXT_PUBLIC_ENABLE_ENCRYPTION === "true";
+    const ENABLE_ENCRYPTION = process.env.EXPO_PUBLIC_ENABLE_ENCRYPTION === "true";
 
       //   let accessToken = rawAccessToken;
 

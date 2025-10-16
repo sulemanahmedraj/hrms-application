@@ -1,8 +1,9 @@
 import { ThemeProvider } from '@react-navigation/native';
 import { PortalHost } from '@rn-primitives/portal';
 import { Stack } from 'expo-router';
+import { Moon, Sun } from 'lucide-react-native';
 import React from 'react';
-import { Text as RNText, TextInput as RNTextInput, StatusBar, TextInputProps, TextProps } from 'react-native';
+import { Text as RNText, TextInput as RNTextInput, StatusBar, TextInputProps, TextProps, TouchableOpacity } from 'react-native';
 import 'react-native-reanimated';
 import "../global.css";
 
@@ -60,22 +61,39 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={themeValue}>
-      <StatusBar style={currentTheme === 'dark' ? 'light' : 'dark'} />
+      <StatusBar barStyle={currentTheme === 'dark' ? 'light-content' : 'dark-content'} />
 
       <Stack
         screenOptions={{
           headerTitleStyle: { fontFamily: 'Poppins_500Medium' },
           headerRight: () => (
-            <RNText
+            <TouchableOpacity
               onPress={toggleTheme}
               style={{
                 marginRight: 15,
-                fontFamily: 'Poppins_600SemiBold',
-                fontSize: 16,
+                padding: 8,
+                borderRadius: 8,
+                backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 6,
               }}
             >
-              {theme === 'dark' ? '🌞 Light' : '🌙 Dark'}
-            </RNText>
+              {theme === 'dark' ? (
+                <Sun size={18} color="#fbbf24" />
+              ) : (
+                <Moon size={18} color="#6366f1" />
+              )}
+              <RNText
+                style={{
+                  fontFamily: 'Poppins_500Medium',
+                  fontSize: 14,
+                  color: theme === 'dark' ? '#fbbf24' : '#6366f1',
+                }}
+              >
+                {theme === 'dark' ? 'Light' : 'Dark'}
+              </RNText>
+            </TouchableOpacity>
           ),
         }}
       >

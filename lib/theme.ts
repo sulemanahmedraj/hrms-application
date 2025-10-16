@@ -1,60 +1,66 @@
 import { DarkTheme, DefaultTheme, type Theme } from '@react-navigation/native';
- 
+
 export const THEME = {
   light: {
-    background: 'hsl(0 0% 100%)',
-    foreground: 'hsl(0 0% 3.9%)',
-    card: 'hsl(0 0% 100%)',
-    cardForeground: 'hsl(0 0% 3.9%)',
-    popover: 'hsl(0 0% 100%)',
-    popoverForeground: 'hsl(0 0% 3.9%)',
-    primary: 'hsl(0 0% 9%)',
-    primaryForeground: 'hsl(0 0% 98%)',
-    secondary: 'hsl(0 0% 96.1%)',
-    secondaryForeground: 'hsl(0 0% 9%)',
-    muted: 'hsl(0 0% 96.1%)',
-    mutedForeground: 'hsl(0 0% 45.1%)',
-    accent: 'hsl(0 0% 96.1%)',
-    accentForeground: 'hsl(0 0% 9%)',
-    destructive: 'hsl(0 84.2% 60.2%)',
-    border: 'hsl(0 0% 89.8%)',
-    input: 'hsl(0 100% 50%)',
-    ring: 'hsl(0 0% 63%)',
-    radius: '0.625rem',
-    chart1: 'hsl(12 76% 61%)',
-    chart2: 'hsl(173 58% 39%)',
-    chart3: 'hsl(197 37% 24%)',
-    chart4: 'hsl(43 74% 66%)',
-    chart5: 'hsl(27 87% 67%)',
+    background: 'hsl(0 0% 99%)',          // oklch(0.9940 0 0)
+    foreground: 'hsl(0 0% 0%)',           // oklch(0 0 0)
+    card: 'hsl(0 0% 99%)',
+    cardForeground: 'hsl(0 0% 0%)',
+    popover: 'hsl(0 0% 98%)',
+    popoverForeground: 'hsl(0 0% 0%)',
+    primary: 'hsl(276 63% 54%)',          // oklch(0.5393 0.2713 286.7)
+    primaryForeground: 'hsl(0 0% 100%)',
+    secondary: 'hsl(240 7% 94%)',         // oklch(0.9540 0.0063 255.4)
+    secondaryForeground: 'hsl(0 0% 13%)',
+    muted: 'hsl(0 0% 96%)',
+    mutedForeground: 'hsl(0 0% 44%)',
+    accent: 'hsl(249 20% 92%)',           // oklch(0.9393 0.0288 266.3)
+    accentForeground: 'hsl(251 50% 50%)', // oklch(0.5445 0.1903 259.4)
+    destructive: 'hsl(24 70% 48%)',       // oklch(0.6290 0.1902 23.0)
+    destructiveForeground: 'hsl(0 0% 100%)',
+    border: 'hsl(280 5% 92%)',
+    input: 'hsl(0 0% 94%)',
+    ring: 'hsl(0 0% 0%)',
+    radius: '1.4rem',
+
+    // Charts
+    chart1: 'hsl(156 45% 63%)',
+    chart2: 'hsl(276 63% 54%)',
+    chart3: 'hsl(51 72% 62%)',
+    chart4: 'hsl(259 54% 58%)',
+    chart5: 'hsl(0 0% 54%)',
   },
   dark: {
-    background: 'hsl(0 0% 3.9%)',
-    foreground: 'hsl(0 0% 98%)',
-    card: 'hsl(0 0% 3.9%)',
-    cardForeground: 'hsl(0 0% 98%)',
-    popover: 'hsl(0 0% 3.9%)',
-    popoverForeground: 'hsl(0 0% 98%)',
-    primary: 'hsl(0 0% 98%)',
-    primaryForeground: 'hsl(0 0% 9%)',
-    secondary: 'hsl(0 0% 14.9%)',
-    secondaryForeground: 'hsl(0 0% 98%)',
-    muted: 'hsl(0 0% 14.9%)',
-    mutedForeground: 'hsl(0 0% 63.9%)',
-    accent: 'hsl(0 0% 14.9%)',
-    accentForeground: 'hsl(0 0% 98%)',
-    destructive: 'hsl(0 70.9% 59.4%)',
-    border: 'hsl(0 0% 14.9%)',
-    input: 'hsl(0 100% 50%)',
-    ring: 'hsl(300 0% 45%)',
-    radius: '0.625rem',
-    chart1: 'hsl(220 70% 50%)',
-    chart2: 'hsl(160 60% 45%)',
-    chart3: 'hsl(30 80% 55%)',
-    chart4: 'hsl(280 65% 60%)',
-    chart5: 'hsl(340 75% 55%)',
+    background: 'hsl(271 3% 22%)',        // oklch(0.2223 0.0060 271.1)
+    foreground: 'hsl(0 0% 96%)',
+    card: 'hsl(275 3% 25%)',
+    cardForeground: 'hsl(0 0% 96%)',
+    popover: 'hsl(275 3% 25%)',
+    popoverForeground: 'hsl(0 0% 96%)',
+    primary: 'hsl(292 55% 56%)',          // oklch(0.6132 0.2294 291.7)
+    primaryForeground: 'hsl(0 0% 100%)',
+    secondary: 'hsl(273 5% 29%)',
+    secondaryForeground: 'hsl(0 0% 96%)',
+    muted: 'hsl(273 5% 29%)',
+    mutedForeground: 'hsl(0 0% 71%)',
+    accent: 'hsl(260 11% 28%)',
+    accentForeground: 'hsl(247 56% 62%)',
+    destructive: 'hsl(22 66% 54%)',
+    destructiveForeground: 'hsl(0 0% 100%)',
+    border: 'hsl(268 4% 33%)',
+    input: 'hsl(268 4% 33%)',
+    ring: 'hsl(292 55% 56%)',
+    radius: '1.4rem',
+
+    // Charts
+    chart1: 'hsl(152 54% 72%)',
+    chart2: 'hsl(292 55% 56%)',
+    chart3: 'hsl(20 65% 68%)',
+    chart4: 'hsl(260 49% 63%)',
+    chart5: 'hsl(0 0% 71%)',
   },
 };
- 
+
 export const NAV_THEME: Record<'light' | 'dark', Theme> = {
   light: {
     ...DefaultTheme,
