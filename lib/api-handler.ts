@@ -1,8 +1,8 @@
 "use client";
 
 import { API_METHODS } from "@/lib/constant";
-import { axiosInstance } from "./axios-instance";
 import type { AxiosRequestConfig, AxiosResponse } from "axios";
+import { axiosInstance } from "./axios-instance";
 
 interface ApiHandlerOptions extends Omit<AxiosRequestConfig, 'url' | 'method' | 'params' | 'data' | 'headers'> {
   method?: keyof typeof API_METHODS | string;
@@ -81,8 +81,10 @@ export async function apiHandler<T = any>(
 export const apiGet = <T>(url: string, params?: Record<string, any>, config?: Omit<ApiHandlerOptions, 'method' | 'params' | 'data'>) =>
   apiHandler<T>(url, { method: API_METHODS.GET, params, ...config });
 
-export const apiPost = <T>(url: string, data?: any, config?: Omit<ApiHandlerOptions, 'method' | 'params' | 'data'>) =>
-  apiHandler<T>(url, { method: API_METHODS.POST, data, ...config });
+export const apiPost = <T>(url: string, data?: any, config?: Omit<ApiHandlerOptions, 'method' | 'params' | 'data'>) => {
+  console.log({ url, data, config })
+  return apiHandler<T>(url, { method: API_METHODS.POST, data, ...config });
+}
 
 export const apiPatch = <T>(url: string, data?: any, config?: Omit<ApiHandlerOptions, 'method' | 'params' | 'data'>) =>
   apiHandler<T>(url, { method: API_METHODS.PATCH, data, ...config });

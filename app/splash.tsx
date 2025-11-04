@@ -1,72 +1,128 @@
-import { router } from 'expo-router';
-import { Building2 } from 'lucide-react-native';
-import React, { useEffect } from 'react';
-import { Text, View } from 'react-native';
-import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { LinearGradient } from 'expo-linear-gradient'
+import { router } from 'expo-router'
+import { Building2 } from 'lucide-react-native'
+import React, { useEffect } from 'react'
+import { Dimensions, Text, View } from 'react-native'
+import Animated, {
+  Easing,
+  interpolate,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated'
+
+const { width, height } = Dimensions.get('window')
 
 export default function SplashScreen() {
   // Animation values
-  const logoOpacity = useSharedValue(0);
-  const logoScale = useSharedValue(0.5);
-  const circleTopScale = useSharedValue(0);
-  const circleBottomScale = useSharedValue(0);
+  const progress = useSharedValue(0)
 
-  // Animate on mount
   useEffect(() => {
-    // Fade-in & scale logo
-    logoOpacity.value = withTiming(1, { duration: 1000, easing: Easing.out(Easing.exp) });
-    logoScale.value = withTiming(1, { duration: 1000, easing: Easing.out(Easing.exp) });
+    progress.value = withTiming(1, {
+      duration: 2000,
+      easing: Easing.out(Easing.exp),
+    })
 
-    // Decorative circles
-    circleTopScale.value = withTiming(1, { duration: 1200, easing: Easing.out(Easing.exp) });
-    circleBottomScale.value = withTiming(1, { duration: 1200, easing: Easing.out(Easing.exp) });
-
-    // Navigate to login after 3s
     const timer = setTimeout(() => {
-      router.replace('/login');
-    }, 3000);
+      router.replace('/login')
+    }, 3000)
 
-    return () => clearTimeout(timer);
-  }, []);
+    return () => clearTimeout(timer)
+  }, [])
 
   // Animated styles
-  const logoStyle = useAnimatedStyle(() => ({
-    opacity: logoOpacity.value,
-    transform: [{ scale: logoScale.value }],
-  }));
+  const logoStyle = useAnimatedStyle(() => {
+    const scale = interpolate(progress.value, [0, 1], [0.5, 1.1])
+    const opacity = interpolate(progress.value, [0, 1], [0, 1])
+    return {
+      opacity,
+      transform: [{ scale }],
+    }
+  })
 
-  const circleTopStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: circleTopScale.value }],
-  }));
-
-  const circleBottomStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: circleBottomScale.value }],
-  }));
+  const glowStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(progress.value, [0, 1], [0, 0.6])
+    const scale = interpolate(progress.value, [0, 1], [0.5, 2])
+    return {
+      opacity,
+      transform: [{ scale }],
+    }
+  })
 
   return (
-    <View className="flex-1 bg-gradient-to-br from-purple-600 via-purple-700 to-purple-800 justify-center items-center relative">
-      {/* Decorative circles */}
-      <Animated.View
-        style={circleTopStyle}
-        className="absolute top-0 left-0 w-32 h-32 bg-white/10 rounded-full -translate-x-16 -translate-y-16"
-      />
-      <Animated.View
-        style={circleBottomStyle}
-        className="absolute bottom-0 right-0 w-40 h-40 bg-white/10 rounded-full translate-x-20 translate-y-20"
+    <View className="flex-1 justify-center items-center bg-[#1C003D]">
+      {/* Background gradients */}
+      <LinearGradient
+        colors={['#7F00FF', '#E100FF']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={{
+          position: 'absolute',
+          width,
+          height: height * 0.6,
+          top: -height * 0.2,
+          borderBottomLeftRadius: width,
+          borderBottomRightRadius: width,
+        }}
       />
 
-      {/* Additional decorative elements */}
-      <View className="absolute top-20 right-20 w-16 h-16 bg-white/5 rounded-full" />
-      <View className="absolute bottom-32 left-16 w-12 h-12 bg-white/5 rounded-full" />
+      {/* Glow behind logo */}
+      <Animated.View
+        style={[
+          glowStyle,
+          {
+            position: 'absolute',
+            width: 200,
+            height: 200,
+            borderRadius: 100,
+            backgroundColor: '#A855F7',
+          },
+        ]}
+      />
 
-      {/* Logo */}
+      {/* Logo container */}
       <Animated.View style={logoStyle} className="items-center">
-        <View className="w-24 h-24 bg-white/20 rounded-3xl items-center justify-center mb-8 shadow-2xl shadow-white/10">
-          <Building2 size={48} color="white" />
+        <View className="w-24 h-24 bg-white/15 rounded-3xl items-center justify-center mb-8 shadow-lg shadow-white/10">
+          <Building2 size={52} color="white" />
         </View>
-        <Text className="text-white text-5xl font-bold mb-2">HRMS</Text>
-        <Text className="text-white/80 text-lg font-medium">Human Resource Management System</Text>
+
+        {/* App title with shimmer effect */}
+        <LinearGradient
+          colors={['#ffffff', '#E9D5FF']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={{
+            backgroundClip: 'text',
+          }}>
+          <Text
+            style={{
+              fontSize: 48,
+              fontWeight: '800',
+              color: 'white',
+              letterSpacing: 2,
+              textShadowColor: 'rgba(255,255,255,0.25)',
+              textShadowOffset: { width: 0, height: 2 },
+              textShadowRadius: 6,
+            }}>
+            HRMS
+          </Text>
+        </LinearGradient>
+
+        <Text className="text-foreground text-base font-medium mt-1">
+          Human Resource Management System
+        </Text>
       </Animated.View>
+
+      {/* Subtle footer accent */}
+      <LinearGradient
+        colors={['transparent', 'rgba(255,255,255,0.05)']}
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          width,
+          height: height * 0.3,
+        }}
+      />
     </View>
-  );
+  )
 }

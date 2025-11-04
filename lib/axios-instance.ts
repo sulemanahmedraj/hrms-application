@@ -7,7 +7,8 @@ import { encryptSensitiveFields } from "./encription";
 
 // Create an instance of axios with custom configuration
 export const axiosInstance = axios.create({
-  baseURL: process.env.EXPO_PUBLIC_BACKEND_URL,
+  // baseURL: process.env.EXPO_PUBLIC_BACKEND_URL,
+  baseURL: "http://172.19.64.159:4000",
     timeout: 50000,
     responseType: "json",
     withCredentials: true
