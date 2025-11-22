@@ -117,7 +117,7 @@ export default function LoginScreen() {
             <View className="w-20 h-20 bg-primary rounded-2xl items-center justify-center mb-6 shadow-lg shadow-purple-500/25">
               <LogIn size={32} color="white" />
             </View>
-            <Text className="text-3xl font-bold text-foreground text-center mb-2">Welcome Back</Text>
+            <Text className="text-3xl text-foreground text-center mb-2">Welcome Back</Text>
             <Text className="text-muted-foreground text-base text-center max-w-xs">
               Sign in to your HRMS account to continue
             </Text>
