@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Text } from '@/components/ui/text';
 import { toast } from '@/hooks/use-toast';
 import { apiPost } from '@/lib/api-handler';
 import { APIs } from '@/lib/APIs';
@@ -14,7 +15,6 @@ import { Controller, useForm } from 'react-hook-form';
 import {
   KeyboardAvoidingView,
   Platform,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -124,11 +124,11 @@ export default function RegisterScreen() {
       >
         <View className="flex-1 px-6 py-12">
           {/* Header Section */}
-          <View className="items-center mb-8">
-            <View className="w-20 h-20 bg-primary rounded-2xl items-center justify-center mb-6 shadow-lg shadow-purple-500/25">
+          <View className="items-center mb-8 font-sans">
+            <View className="w-20 h-20 bg-primary  rounded-2xl items-center justify-center mb-6 shadow-lg shadow-purple-500/25">
               <UserPlus size={32} color="white" />
             </View>
-            <Text className="text-3xl font-bold text-foreground text-center mb-2">
+            <Text className="text-3xl  text-foreground text-center mb-2">
               HR Management Registration
             </Text>
             <Text className="text-muted-foreground text-base text-center max-w-xs">
@@ -137,7 +137,7 @@ export default function RegisterScreen() {
           </View>
 
           {/* Form Card */}
-          <View className="bg-background rounded-2xl border-2 border-primary p-6 mb-6">
+          <View className="bg-background rounded-2xl border-2 border-primary p-4 mb-6">
 
             {/* First + Last Name */}
             <View className="flex-row gap-4">
@@ -147,7 +147,7 @@ export default function RegisterScreen() {
                 name="firstName"
                 render={({ field }) => (
                   <View className="flex-1 mb-6">
-                    <Label className="text-foreground font-medium">
+                    <Label className="text-foreground mb-2 ml-1">
                       First Name
                     </Label>
                     <Input
@@ -155,6 +155,8 @@ export default function RegisterScreen() {
                       value={field.value}
                       onChangeText={field.onChange}
                       editable={!loading}
+                      className="h-12 border-border placeholder:text-muted-foreground bg-background text-foreground focus:border-primary focus:ring-primary/20"
+
                     />
                     {errors.firstName && (
                       <Text className="text-destructive text-sm mt-2">
@@ -171,7 +173,7 @@ export default function RegisterScreen() {
                 name="lastName"
                 render={({ field }) => (
                   <View className="flex-1 mb-6">
-                    <Label className="text-foreground font-medium">
+                    <Label className="text-foreground mb-2 ml-1">
                       Last Name
                     </Label>
                     <Input
@@ -179,6 +181,7 @@ export default function RegisterScreen() {
                       value={field.value}
                       onChangeText={field.onChange}
                       editable={!loading}
+                      className="h-12 border-border placeholder:text-muted-foreground bg-background text-foreground focus:border-primary focus:ring-primary/20"
                     />
                     {errors.lastName && (
                       <Text className="text-destructive text-sm mt-2">
@@ -196,7 +199,7 @@ export default function RegisterScreen() {
               name="username"
               render={({ field }) => (
                 <View className="mb-6">
-                  <Label className="text-foreground font-medium">
+                  <Label className="text-foreground mb-2 ml-1">
                     Username
                   </Label>
                   <Input
@@ -204,6 +207,7 @@ export default function RegisterScreen() {
                     value={field.value}
                     onChangeText={field.onChange}
                     editable={!loading}
+                    className="h-12 border-border placeholder:text-muted-foreground bg-background text-foreground focus:border-primary focus:ring-primary/20"
                   />
                   {errors.username && (
                     <Text className="text-destructive text-sm mt-2">
@@ -220,7 +224,7 @@ export default function RegisterScreen() {
               name="email"
               render={({ field }) => (
                 <View className="mb-6">
-                  <Label className="text-foreground font-medium">
+                  <Label className="text-foreground mb-2 ml-1">
                     Email Address
                   </Label>
                   <Input
@@ -230,6 +234,7 @@ export default function RegisterScreen() {
                     keyboardType="email-address"
                     autoCapitalize="none"
                     editable={!loading}
+                    className="h-12 border-border placeholder:text-muted-foreground bg-background text-foreground focus:border-primary focus:ring-primary/20"
                   />
                   {errors.email && (
                     <Text className="text-destructive text-sm mt-2">
@@ -247,7 +252,7 @@ export default function RegisterScreen() {
                 name="password"
                 render={({ field: { onChange, onBlur, value } }) => (
                   <View className="space-y-2">
-                    <Label htmlFor="password" className="text-foreground font-medium mb-4">
+                    <Label htmlFor="password" className="text-foreground font-medium mb-2 ml-1">
                       Password
                     </Label>
 

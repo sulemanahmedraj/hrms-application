@@ -4,6 +4,7 @@ import { Stack } from 'expo-router';
 import { Moon, Sun } from 'lucide-react-native';
 import React from 'react';
 import { Text as RNText, TextInput as RNTextInput, StatusBar, TextInputProps, TextProps, TouchableOpacity, View } from 'react-native';
+import 'react-native-get-random-values';
 import 'react-native-reanimated';
 import "../global.css";
 

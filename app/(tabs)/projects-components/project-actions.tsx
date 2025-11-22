@@ -1,29 +1,29 @@
 "use client";
 
 import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import {
-    Dialog,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -31,13 +31,14 @@ import { useProjects } from "@/hooks/use-project";
 import { toast } from "@/hooks/use-toast";
 import { ProjectItem } from "@/types";
 import {
-    Copy,
-    Edit2,
-    Eye,
-    MoreVertical,
-    Trash2,
+  Copy,
+  Edit2,
+  Eye,
+  MoreVertical,
+  Trash2,
 } from "lucide-react-native";
 import { useState } from "react";
+import { Text, View } from "react-native";
 
 interface ProjectActionsProps {
   project: ProjectItem;
@@ -54,8 +55,14 @@ export function ProjectActions({ project }: ProjectActionsProps) {
   });
 
   // --- Handlers ---
-  const handleEdit = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent card click navigation
+  const handleEdit = (e: any) => {
+    // e.stopPropagation(); // Not needed/supported in the same way for RN DropdownMenuItem usually, but if it is, keep it. 
+    // However, DropdownMenuItem in RN primitives usually handles this. 
+    // If using a web-compat library, event might exist. 
+    // For safety in RN, we usually don't need stopPropagation on menu items unless they bubble to a parent pressable.
+    // But since the parent Card has onPress, we might need it if the menu is inside the card.
+    // The DropdownMenuTrigger is inside the card.
+    // On RN, the Modal/Dropdown usually overlays, so pressing it doesn't trigger the card underneath.
     setEditForm({
       name: project.name,
       description: project.description || "",
@@ -90,8 +97,8 @@ export function ProjectActions({ project }: ProjectActionsProps) {
     });
   };
 
-  const handleView = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent card click navigation
+  const handleView = (e: any) => {
+    // e.stopPropagation();
     console.log("Navigate to project:", project.id);
     toast({
       title: "Navigation",
@@ -99,8 +106,8 @@ export function ProjectActions({ project }: ProjectActionsProps) {
     });
   };
 
-  const handleDuplicate = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent card click navigation
+  const handleDuplicate = (e: any) => {
+    // e.stopPropagation();
     createProject.mutate({
       name: `${project.name} (Copy)`,
       description: project.description || "",
@@ -116,35 +123,34 @@ export function ProjectActions({ project }: ProjectActionsProps) {
             variant="ghost"
             size="sm"
             className="!h-6 !w-6 p-0 hover:bg-black/10"
-            onPress={(e) => e.stopPropagation()}
+          // onPress={(e) => e.stopPropagation()} // RN Button might not need this if it captures touch
           >
             <MoreVertical className="h-4 w-4" />
-            <span className="sr-only">Open menu</span>
+            <Text className="sr-only">Open menu</Text>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-48">
-          <DropdownMenuItem onPress={handleView} className="cursor-pointer">
+          <DropdownMenuItem onPress={handleView} className="cursor-pointer flex-row items-center">
             <Eye className="mr-2 h-4 w-4" />
-            View Project
+            <Text>View Project</Text>
           </DropdownMenuItem>
-          <DropdownMenuItem onPress={handleEdit} className="cursor-pointer">
+          <DropdownMenuItem onPress={handleEdit} className="cursor-pointer flex-row items-center">
             <Edit2 className="mr-2 h-4 w-4" />
-            Edit Project
+            <Text>Edit Project</Text>
           </DropdownMenuItem>
-          <DropdownMenuItem onPress={handleDuplicate} className="cursor-pointer">
+          <DropdownMenuItem onPress={handleDuplicate} className="cursor-pointer flex-row items-center">
             <Copy className="mr-2 h-4 w-4" />
-            Duplicate
+            <Text>Duplicate</Text>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
-            onPress={(e) => {
-              e.stopPropagation(); // Prevent card click navigation
+            onPress={() => {
               setShowDeleteAlert(true);
             }}
-            className="cursor-pointer text-red-600 focus:text-red-600"
+            className="cursor-pointer text-red-600 focus:text-red-600 flex-row items-center"
           >
             <Trash2 className="mr-2 h-4 w-4" />
-            Delete Project
+            <Text className="text-red-600">Delete Project</Text>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -155,48 +161,44 @@ export function ProjectActions({ project }: ProjectActionsProps) {
           <DialogHeader>
             <DialogTitle>Edit Project</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="name" className="text-sm font-medium text-gray-700 block mb-2">
+          <View className="gap-4">
+            <View>
+              <Text className="text-sm font-medium text-gray-700 mb-2">
                 Project Name *
-              </label>
+              </Text>
               <Input
-                id="name"
                 value={editForm.name}
                 onChangeText={(text) => setEditForm(prev => ({ ...prev, name: text }))}
                 placeholder="Enter project name"
                 className="w-full"
               />
-            </div>
-            <div>
-              <label htmlFor="description" className="text-sm font-medium text-gray-700 block mb-2">
+            </View>
+            <View>
+              <Text className="text-sm font-medium text-gray-700 mb-2">
                 Description
-              </label>
+              </Text>
               <Textarea
-                id="description"
                 value={editForm.description}
                 onChangeText={(text) => setEditForm(prev => ({ ...prev, description: text }))}
                 placeholder="Enter project description"
                 numberOfLines={3}
-                className="w-full resize-none"
+                className="w-full"
               />
-            </div>
-          </div>
+            </View>
+          </View>
           <DialogFooter>
             <Button
               variant="outline"
-              type="button"
               onPress={() => setShowEditDialog(false)}
               disabled={updateProject.isPending}
             >
-              Cancel
+              <Text>Cancel</Text>
             </Button>
             <Button
-              type="submit"
               onPress={handleSaveEdit}
               disabled={updateProject.isPending}
             >
-              {updateProject.isPending ? "Saving..." : "Save Changes"}
+              <Text>{updateProject.isPending ? "Saving..." : "Save Changes"}</Text>
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -209,19 +211,23 @@ export function ProjectActions({ project }: ProjectActionsProps) {
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone. This will permanently delete the project{" "}
-              <span className="font-semibold">"{project.name}"</span> and remove all associated data.
+              <Text className="font-semibold">"{project.name}"</Text> and remove all associated data.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={deleteProject.isPending}>
-              Cancel
+            <AlertDialogCancel>
+              <Button variant="outline" onPress={() => setShowDeleteAlert(false)} disabled={deleteProject.isPending}>
+                <Text>Cancel</Text>
+              </Button>
             </AlertDialogCancel>
-            <AlertDialogAction
-              onPress={handleDelete}
-              disabled={deleteProject.isPending}
-              className="bg-red-600 hover:bg-red-700"
-            >
-              {deleteProject.isPending ? "Deleting..." : "Delete"}
+            <AlertDialogAction>
+              <Button
+                variant="destructive"
+                onPress={handleDelete}
+                disabled={deleteProject.isPending}
+              >
+                <Text className="text-white">{deleteProject.isPending ? "Deleting..." : "Delete"}</Text>
+              </Button>
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

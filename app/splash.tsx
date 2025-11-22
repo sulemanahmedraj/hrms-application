@@ -87,26 +87,19 @@ export default function SplashScreen() {
         </View>
 
         {/* App title with shimmer effect */}
-        <LinearGradient
-          colors={['#ffffff', '#E9D5FF']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
+
+        <Text
           style={{
-            backgroundClip: 'text',
+            fontSize: 48,
+            fontWeight: '800',
+            color: 'white',
+            letterSpacing: 2,
+            textShadowColor: 'rgba(255,255,255,0.25)',
+            textShadowOffset: { width: 0, height: 2 },
+            textShadowRadius: 6,
           }}>
-          <Text
-            style={{
-              fontSize: 48,
-              fontWeight: '800',
-              color: 'white',
-              letterSpacing: 2,
-              textShadowColor: 'rgba(255,255,255,0.25)',
-              textShadowOffset: { width: 0, height: 2 },
-              textShadowRadius: 6,
-            }}>
-            HRMS
-          </Text>
-        </LinearGradient>
+          HRMS
+        </Text>
 
         <Text className="text-foreground text-base font-medium mt-1">
           Human Resource Management System

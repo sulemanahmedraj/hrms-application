@@ -6,13 +6,14 @@ import { Check, Eye, EyeOff, LogIn } from "lucide-react-native";
 // import * as SecureStore from "expo-secure-store";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { KeyboardAvoidingView, Platform, Text, TouchableOpacity, View } from "react-native";
+import { KeyboardAvoidingView, Platform, TouchableOpacity, View } from "react-native";
 import { z } from "zod";
 
 // import favicon from "@/assets/images/favicon.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Text } from "@/components/ui/text";
 import { toast } from "@/hooks/use-toast"; // your custom toast
 import { apiPost } from "@/lib/api-handler"; // your axios wrapper
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -109,59 +110,59 @@ export default function LoginScreen() {
         enableOnAndroid
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ flexGrow: 1, padding: 16 }}
-      >      
-      <View className="flex-1 px-6 py-12">
-        {/* Header Section */}
-        <View className="items-center mb-12">
+      >
+        <View className="flex-1 px-6 py-12">
+          {/* Header Section */}
+          <View className="items-center mb-12">
             <View className="w-20 h-20 bg-primary rounded-2xl items-center justify-center mb-6 shadow-lg shadow-purple-500/25">
-            <LogIn size={32} color="white" />
-          </View>
+              <LogIn size={32} color="white" />
+            </View>
             <Text className="text-3xl font-bold text-foreground text-center mb-2">Welcome Back</Text>
             <Text className="text-muted-foreground text-base text-center max-w-xs">
               Sign in to your HRMS account to continue
-          </Text>
-        </View>
-
-        {/* Form Card */}
-          <View className="bg-card rounded-2xl border-2 border-primary p-6 mb-6">
-
-          {/* Email input */}
-          <View className="mb-6">
-            <Controller
-              control={control}
-              name="email"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <View className="space-y-2">
-                  <Label htmlFor="email" className="text-foreground font-medium mb-4">Email Address</Label>
-                  <Input
-                    id="email"
-                    placeholder="Enter your email address"
-                    value={value}
-                    onChangeText={onChange}
-                    onBlur={onBlur}
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                    editable={!loading}
-                    className="h-12 border-border placeholder:text-muted-foreground bg-background text-foreground focus:border-primary focus:ring-primary/20"
-                  />
-                </View>
-              )}
-            />
-            {errors.email && (
-                <Text className="text-destructive text-sm mt-2">
-                {errors.email.message}
-              </Text>
-            )}
+            </Text>
           </View>
 
-          {/* Password input */}
-          <View className="mb-6">
+          {/* Form Card */}
+          <View className="bg-card rounded-2xl border-2 border-primary p-6 mb-6">
+
+            {/* Email input */}
+            <View className="mb-6">
+              <Controller
+                control={control}
+                name="email"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <View className="space-y-2">
+                    <Label htmlFor="email" className="text-foreground font-medium mb-2 ml-1">Email Address</Label>
+                    <Input
+                      id="email"
+                      placeholder="Enter your email address"
+                      value={value}
+                      onChangeText={onChange}
+                      onBlur={onBlur}
+                      keyboardType="email-address"
+                      autoCapitalize="none"
+                      editable={!loading}
+                      className="h-12 border-border placeholder:text-muted-foreground bg-background text-foreground focus:border-primary focus:ring-primary/20"
+                    />
+                  </View>
+                )}
+              />
+              {errors.email && (
+                <Text className="text-destructive text-sm mt-2">
+                  {errors.email.message}
+                </Text>
+              )}
+            </View>
+
+            {/* Password input */}
+            <View className="mb-6">
               <Controller
                 control={control}
                 name="password"
                 render={({ field: { onChange, onBlur, value } }) => (
                   <View className="space-y-2">
-                    <Label htmlFor="password" className="text-foreground font-medium mb-4">
+                    <Label htmlFor="password" className="text-foreground font-medium mb-2 ml-1">
                       Password
                     </Label>
 
@@ -203,52 +204,52 @@ export default function LoginScreen() {
 
 
 
-          {/* Remember Me & Forgot */}
-          <View className="flex-row justify-between items-center mb-8">
-            <TouchableOpacity
-              className="flex-row items-center"
-              onPress={() => setRememberMe(!rememberMe)}
-            >
-              <View
-                className={`w-5 h-5 border-2 rounded mr-3 items-center justify-center ${rememberMe ? "bg-purple-600 border-purple-600" : "border-slate-300"
-                }`}
+            {/* Remember Me & Forgot */}
+            <View className="flex-row justify-between items-center mb-8">
+              <TouchableOpacity
+                className="flex-row items-center"
+                onPress={() => setRememberMe(!rememberMe)}
               >
-                {rememberMe && <Check size={12} color="white" />}
-              </View>
+                <View
+                  className={`w-5 h-5 border-2 rounded mr-3 items-center justify-center ${rememberMe ? "bg-purple-600 border-purple-600" : "border-slate-300"
+                    }`}
+                >
+                  {rememberMe && <Check size={12} color="white" />}
+                </View>
                 <Text className="text-muted-foreground text-sm font-medium">Remember me</Text>
-            </TouchableOpacity>
+              </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => router.push("/forgot-password")}>
+              <TouchableOpacity onPress={() => router.push("/forgot-password")}>
                 <Text className="text-primary text-sm font-medium">Forgot password?</Text>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
+
+            {/* Login Button */}
+            <Button
+              onPress={handleSubmit(onSubmit)}
+              size="lg"
+              disabled={loading}
+              className="bg-primary h-12 rounded-lg shadow-lg shadow-primary/25"
+            >
+              <Text className="text-white text-base font-semibold">
+                {loading ? "Signing in..." : "Sign In"}
+              </Text>
+            </Button>
           </View>
 
-          {/* Login Button */}
-          <Button
-            onPress={handleSubmit(onSubmit)}
-            size="lg"
-            disabled={loading}
-              className="bg-primary h-12 rounded-lg shadow-lg shadow-primary/25"
-          >
-            <Text className="text-white text-base font-semibold">
-              {loading ? "Signing in..." : "Sign In"}
-            </Text>
-          </Button>
-        </View>
-
-        {/* Footer */}
-        <View className="items-center">
+          {/* Footer */}
+          <View className="items-center">
             <Text className="text-muted-foreground text-sm">
-            Don't have an account?{" "}
-            <Text
+              Don't have an account?{" "}
+              <Text
                 className="text-primary font-semibold"
-              onPress={() => router.push("/register")}
-            >
-              Sign up
+                onPress={() => router.push("/register")}
+              >
+                Sign up
+              </Text>
             </Text>
-          </Text>
+          </View>
         </View>
-      </View>
       </KeyboardAwareScrollView>
     </KeyboardAvoidingView>
   );

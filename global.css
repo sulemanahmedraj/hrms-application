@@ -5,96 +5,96 @@
 @layer base {
   :root {
     /* Light Theme (HSL) */
-      --background: hsl(0, 0%, 99%);
-      --foreground: hsl(0, 0%, 0%);
-      --card: hsl(0, 0%, 99%);
-      --card-foreground: hsl(0, 0%, 0%);
-      --popover: hsl(0, 0%, 98%);
-      --popover-foreground: hsl(0, 0%, 0%);
-      --primary: hsl(287, 56%, 55%);
-      --primary-foreground: hsl(0, 0%, 100%);
-      --secondary: hsl(255, 10%, 94%);
-      --secondary-foreground: hsl(0, 0%, 13%);
-      --muted: hsl(0, 0%, 96%);
-      --muted-foreground: hsl(0, 0%, 44%);
-      --accent: hsl(266, 21%, 92%);
-      --accent-foreground: hsl(259, 46%, 44%);
-      --destructive: hsl(23, 69%, 50%);
-      --destructive-foreground: hsl(0, 0%, 100%);
-      --border: hsl(287, 6%, 91%);
-      --input: hsl(0, 0%, 94%);
-      --ring: hsl(0, 0%, 0%);
-    
-      /* Charts */
-      --chart-1: hsl(156, 45%, 62%);
-      --chart-2: hsl(287, 56%, 55%);
-      --chart-3: hsl(51, 64%, 66%);
-      --chart-4: hsl(260, 49%, 58%);
-      --chart-5: hsl(0, 0%, 56%);
-    
-      /* Sidebar */
-      --sidebar: hsl(248, 10%, 96%);
-      --sidebar-foreground: hsl(0, 0%, 0%);
-      --sidebar-primary: hsl(0, 0%, 0%);
-      --sidebar-primary-foreground: hsl(0, 0%, 100%);
-      --sidebar-accent: hsl(0, 0%, 94%);
-      --sidebar-accent-foreground: hsl(0, 0%, 0%);
-      --sidebar-border: hsl(0, 0%, 94%);
-      --sidebar-ring: hsl(0, 0%, 0%);
-    
-      /* Fonts */
-      --font-sans: Plus Jakarta Sans, sans-serif;
-      --font-serif: Lora, serif;
-      --font-mono: IBM Plex Mono, monospace;
-    
-      /* Radius */
-      --radius: 1.4rem;
+    --background: hsl(0, 0%, 99%);
+    --foreground: hsl(0, 0%, 0%);
+    --card: hsl(0, 0%, 99%);
+    --card-foreground: hsl(0, 0%, 0%);
+    --popover: hsl(0, 0%, 98%);
+    --popover-foreground: hsl(0, 0%, 0%);
+    --primary: hsl(261, 100%, 66%);
+    --primary-foreground: hsl(0, 0%, 100%);
+    --secondary: hsl(255, 10%, 94%);
+    --secondary-foreground: hsl(0, 0%, 13%);
+    --muted: hsl(0, 0%, 96%);
+    --muted-foreground: hsl(0, 0%, 44%);
+    --accent: hsl(266, 21%, 92%);
+    --accent-foreground: hsl(259, 46%, 44%);
+    --destructive: hsl(23, 69%, 50%);
+    --destructive-foreground: hsl(0, 0%, 100%);
+    --border: hsl(287, 6%, 91%);
+    --input: hsl(0, 0%, 94%);
+    --ring: hsl(0, 0%, 0%);
+
+    /* Charts */
+    --chart-1: hsl(156, 45%, 62%);
+    --chart-2: hsl(287, 56%, 55%);
+    --chart-3: hsl(51, 64%, 66%);
+    --chart-4: hsl(260, 49%, 58%);
+    --chart-5: hsl(0, 0%, 56%);
+
+    /* Sidebar */
+    --sidebar: hsl(248, 10%, 96%);
+    --sidebar-foreground: hsl(0, 0%, 0%);
+    --sidebar-primary: hsl(0, 0%, 0%);
+    --sidebar-primary-foreground: hsl(0, 0%, 100%);
+    --sidebar-accent: hsl(0, 0%, 94%);
+    --sidebar-accent-foreground: hsl(0, 0%, 0%);
+    --sidebar-border: hsl(0, 0%, 94%);
+    --sidebar-ring: hsl(0, 0%, 0%);
+
+    /* Fonts */
+    --font-sans: Plus Jakarta Sans, sans-serif;
+    --font-serif: Lora, serif;
+    --font-mono: IBM Plex Mono, monospace;
+
+    /* Radius */
+    --radius: 1.4rem;
   }
 
   .dark:root {
     /* Dark Theme (HSL) */
-      --background: hsl(271, 6%, 22%);
-      --foreground: hsl(0, 0%, 96%);
-      --card: hsl(275, 6%, 25%);
-      --card-foreground: hsl(0, 0%, 96%);
-      --popover: hsl(275, 6%, 25%);
-      --popover-foreground: hsl(0, 0%, 96%);
-      --primary: hsl(292, 56%, 55%);
-      --primary-foreground: hsl(0, 0%, 100%);
-      --secondary: hsl(273, 10%, 29%);
-      --secondary-foreground: hsl(0, 0%, 96%);
-      --muted: hsl(273, 10%, 29%);
-      --muted-foreground: hsl(0, 0%, 71%);
-      --accent: hsl(260, 21%, 27%);
-      --accent-foreground: hsl(247, 56%, 57%);
-      --destructive: hsl(22, 64%, 59%);
-      --destructive-foreground: hsl(0, 0%, 100%);
-      --border: hsl(268, 6%, 32%);
-      --input: hsl(268, 6%, 32%);
-      --ring: hsl(292, 56%, 55%);
-    
-      /* Charts */
-      --chart-1: hsl(152, 55%, 70%);
-      --chart-2: hsl(292, 56%, 55%);
-      --chart-3: hsl(20, 64%, 71%);
-      --chart-4: hsl(260, 55%, 59%);
-      --chart-5: hsl(0, 0%, 71%);
-    
-      /* Sidebar */
-      --sidebar: hsl(286, 6%, 20%);
-      --sidebar-foreground: hsl(0, 0%, 96%);
-      --sidebar-primary: hsl(292, 56%, 55%);
-      --sidebar-primary-foreground: hsl(0, 0%, 100%);
-      --sidebar-accent: hsl(273, 10%, 29%);
-      --sidebar-accent-foreground: hsl(292, 56%, 55%);
-      --sidebar-border: hsl(268, 6%, 32%);
-      --sidebar-ring: hsl(292, 56%, 55%);
-    
-      /* Fonts */
-      --font-sans: Plus Jakarta Sans, sans-serif;
-      --font-serif: Lora, serif;
-      --font-mono: IBM Plex Mono, monospace;
-    
-      --radius: 1.4rem;
+    --background: hsl(271, 6%, 22%);
+    --foreground: hsl(0, 0%, 96%);
+    --card: hsl(275, 6%, 25%);
+    --card-foreground: hsl(0, 0%, 96%);
+    --popover: hsl(275, 6%, 25%);
+    --popover-foreground: hsl(0, 0%, 96%);
+    --primary: hsl(261, 100%, 66%);
+    --primary-foreground: hsl(0, 0%, 100%);
+    --secondary: hsl(273, 10%, 29%);
+    --secondary-foreground: hsl(0, 0%, 96%);
+    --muted: hsl(273, 10%, 29%);
+    --muted-foreground: hsl(0, 0%, 71%);
+    --accent: hsl(260, 21%, 27%);
+    --accent-foreground: hsl(247, 56%, 57%);
+    --destructive: hsl(22, 64%, 59%);
+    --destructive-foreground: hsl(0, 0%, 100%);
+    --border: hsl(268, 6%, 32%);
+    --input: hsl(268, 6%, 32%);
+    --ring: hsl(292, 56%, 55%);
+
+    /* Charts */
+    --chart-1: hsl(152, 55%, 70%);
+    --chart-2: hsl(292, 56%, 55%);
+    --chart-3: hsl(20, 64%, 71%);
+    --chart-4: hsl(260, 55%, 59%);
+    --chart-5: hsl(0, 0%, 71%);
+
+    /* Sidebar */
+    --sidebar: hsl(286, 6%, 20%);
+    --sidebar-foreground: hsl(0, 0%, 96%);
+    --sidebar-primary: hsl(292, 56%, 55%);
+    --sidebar-primary-foreground: hsl(0, 0%, 100%);
+    --sidebar-accent: hsl(273, 10%, 29%);
+    --sidebar-accent-foreground: hsl(292, 56%, 55%);
+    --sidebar-border: hsl(268, 6%, 32%);
+    --sidebar-ring: hsl(292, 56%, 55%);
+
+    /* Fonts */
+    --font-sans: Plus Jakarta Sans, sans-serif;
+    --font-serif: Lora, serif;
+    --font-mono: IBM Plex Mono, monospace;
+
+    --radius: 1.4rem;
   }
 }
